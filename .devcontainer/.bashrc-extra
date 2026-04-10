@@ -1,0 +1,34 @@
+# ── Sandbox shell extras ──────────────────────────────────────────────────────
+# Appended to /home/vscode/.bashrc by the Dockerfile
+
+# Prompt: show git branch
+parse_git_branch() {
+  git branch 2>/dev/null | sed -n 's/^\* //p'
+}
+export PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[33m\]$( b=$(parse_git_branch); [ -n "$b" ] && echo " ($b)")\[\033[00m\]\$ '
+
+# Handy aliases
+alias ll='ls -lah --color=auto'
+alias gs='git status'
+alias gd='git diff'
+alias gl='git log --oneline --graph --decorate -20'
+alias py='python3'
+alias ipy='ipython'
+alias serve='python3 -m http.server'
+
+# Activate local venv automatically if present
+if [ -f ".venv/bin/activate" ]; then
+  source .venv/bin/activate
+fi
+
+# Go + Rust paths (safe no-ops if not installed)
+export PATH="/usr/local/go/bin:${HOME}/.cargo/bin:${PATH}"
+
+# SDKMAN (Java, Scala, Kotlin, sbt, Maven, Gradle, ...)
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# JVM aliases
+alias sbtc='sbt compile'
+alias sbtr='sbt run'
+alias scr='scala-cli'         # if you install scala-cli: sdk install scalacli

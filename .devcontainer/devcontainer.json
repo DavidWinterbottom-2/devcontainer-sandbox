@@ -1,0 +1,51 @@
+{
+  "name": "Sandbox",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+
+  // Forward ports as needed — add/remove freely
+  "forwardPorts": [3000, 8080, 5432, 6379],
+  "portsAttributes": {
+    "3000": { "label": "App" },
+    "8080": { "label": "Alt HTTP" },
+    "5432": { "label": "Postgres" },
+    "6379": { "label": "Redis" }
+  },
+
+  // VS Code extensions installed inside the container
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "golang.go",
+        "rust-lang.rust-analyzer",
+        "redhat.java",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-maven",
+        "scalameta.metals",
+        "redhat.vscode-yaml",
+        "ms-azuretools.vscode-docker",
+        "GitHub.copilot",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+      }
+    }
+  },
+
+  // Run as non-root user
+  "remoteUser": "vscode",
+
+  // Commands that run after the container is created
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}

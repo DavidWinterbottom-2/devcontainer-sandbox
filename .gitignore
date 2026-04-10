@@ -1,0 +1,33 @@
+# Sandpit experiments (keep noise out of git history)
+sandbox/
+scratch.*
+*.local
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+.pytest_cache/
+
+# Node
+node_modules/
+.npm/
+dist/
+.next/
+.nuxt/
+
+# Go
+*.exe
+*.test
+
+# Rust
+target/
+
+# Editor
+.vscode/settings.json
+*.swp
+*.swo
+.DS_Store
