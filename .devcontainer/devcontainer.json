@@ -4,16 +4,27 @@
     "dockerfile": "Dockerfile",
     "context": ".."
   },
-
   // Forward ports as needed — add/remove freely
-  "forwardPorts": [3000, 8080, 5432, 6379],
+  "forwardPorts": [
+    3000,
+    8080,
+    5432,
+    6379
+  ],
   "portsAttributes": {
-    "3000": { "label": "App" },
-    "8080": { "label": "Alt HTTP" },
-    "5432": { "label": "Postgres" },
-    "6379": { "label": "Redis" }
+    "3000": {
+      "label": "App"
+    },
+    "8080": {
+      "label": "Alt HTTP"
+    },
+    "5432": {
+      "label": "Postgres"
+    },
+    "6379": {
+      "label": "Redis"
+    }
   },
-
   // VS Code extensions installed inside the container
   "customizations": {
     "vscode": {
@@ -44,15 +55,12 @@
       }
     }
   },
-
   // Run as non-root user
   "remoteUser": "vscode",
-
   // Mount SSH keys and known_hosts from host
   "mounts": [
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
   ],
-
   // Commands that run after the container is created
   "postCreateCommand": "bash .devcontainer/post-create.sh"
 }
