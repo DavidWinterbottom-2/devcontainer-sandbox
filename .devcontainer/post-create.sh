@@ -39,3 +39,12 @@ if [ ! -d "$DOTFILES_DIR" ]; then
 else
   echo "Dotfiles already cloned. Skipping."
 fi
+
+# ── SSH Agent setup ────────────────────────────────────────────────────────
+echo "🔑 Setting up SSH agent..."
+eval "$(ssh-agent -s)"
+if [ -f "$HOME/.ssh/id_rsa" ]; then
+  ssh-add "$HOME/.ssh/id_rsa"
+else
+  echo "No default SSH key found in ~/.ssh. You may need to add one manually."
+fi
