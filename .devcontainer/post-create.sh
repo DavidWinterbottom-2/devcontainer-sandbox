@@ -23,3 +23,19 @@ if [ -f "package.json" ]; then
 fi
 
 echo "✅ Post-create setup complete."
+
+# ── Clone and install dotfiles ─────────────────────────────────────────────
+echo "🔧 Cloning and installing dotfiles..."
+DOTFILES_REPO="https://github.com/DavidWinterbottom-2/dotfiles"
+DOTFILES_DIR="$HOME/.dotfiles"
+if [ ! -d "$DOTFILES_DIR" ]; then
+  git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
+  cd "$DOTFILES_DIR"
+  if [ -f "install" ]; then
+    chmod +x install
+    ./install
+  fi
+  cd -
+else
+  echo "Dotfiles already cloned. Skipping."
+fi

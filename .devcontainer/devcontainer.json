@@ -33,7 +33,9 @@
         "redhat.vscode-yaml",
         "ms-azuretools.vscode-docker",
         "GitHub.copilot",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "anthropic.claude-vscode",
+        "anthropic.claude-code"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
