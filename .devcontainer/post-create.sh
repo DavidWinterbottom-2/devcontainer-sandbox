@@ -30,12 +30,10 @@ DOTFILES_REPO="https://github.com/DavidWinterbottom-2/dotfiles"
 DOTFILES_DIR="$HOME/.dotfiles"
 if [ ! -d "$DOTFILES_DIR" ]; then
   git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
-  if [ -f "$DOTFILES_DIR/install" ]; then
-    chmod +x "$DOTFILES_DIR/install"
-    "$DOTFILES_DIR/install"
-  fi
-else
-  echo "Dotfiles already cloned. Skipping."
+fi
+if [ -f "$DOTFILES_DIR/install.sh" ]; then
+  chmod +x "$DOTFILES_DIR/install.sh"
+  "$DOTFILES_DIR/install.sh"
 fi
 
 # ── SSH Agent setup ────────────────────────────────────────────────────────
@@ -44,8 +42,8 @@ fi
 # to it directly. If no agent is reachable at all, we start a local persistent one.
 echo "🔑 Setting up SSH agent..."
 
-ssh-add -l &>/dev/null
-_ssh_rc=$?
+_ssh_rc=0
+ssh-add -l &>/dev/null || _ssh_rc=$?
 
 if [ $_ssh_rc -eq 0 ]; then
   echo "  SSH agent already has identities loaded (forwarded from host)."
