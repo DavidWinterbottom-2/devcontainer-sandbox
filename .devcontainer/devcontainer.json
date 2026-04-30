@@ -57,7 +57,7 @@
   },
   // Run as non-root user
   "remoteUser": "vscode",
-  // Mount SSH keys and known_hosts from host
+  // Mount SSH keys and known_hosts from host (key files, not the agent socket)
   "mounts": [
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
   ],
