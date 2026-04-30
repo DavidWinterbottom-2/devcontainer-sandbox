@@ -30,12 +30,10 @@ DOTFILES_REPO="https://github.com/DavidWinterbottom-2/dotfiles"
 DOTFILES_DIR="$HOME/.dotfiles"
 if [ ! -d "$DOTFILES_DIR" ]; then
   git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
-  cd "$DOTFILES_DIR"
-  if [ -f "install" ]; then
-    chmod +x install
-    ./install
+  if [ -f "$DOTFILES_DIR/install" ]; then
+    chmod +x "$DOTFILES_DIR/install"
+    "$DOTFILES_DIR/install"
   fi
-  cd -
 else
   echo "Dotfiles already cloned. Skipping."
 fi
