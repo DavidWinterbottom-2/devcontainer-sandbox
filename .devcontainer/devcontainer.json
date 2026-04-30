@@ -59,7 +59,8 @@
   "remoteUser": "vscode",
   // Mount SSH keys and known_hosts from host
   "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.dotfiles,target=/home/vscode/.dotfiles,type=bind,consistency=cached"
   ],
   // Commands that run after the container is created
   "postCreateCommand": "bash .devcontainer/post-create.sh && bash .devcontainer/post-create-skills.sh && bash .devcontainer/post-create-mcp.sh"
