@@ -22,21 +22,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-pip \
     python3-venv \
-    # Node.js (via NodeSource)
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
     # SSH client for ssh-agent
     openssh-client \
     # Clean up
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# ── Node.js global tools ─────────────────────────────────────────────────────
-RUN npm install -g \
-    pnpm \
-    typescript \
-    ts-node \
-    nodemon
 
 # ── Python global tools ───────────────────────────────────────────────────────
 RUN pip3 install --no-cache-dir \
@@ -72,6 +62,14 @@ USER vscode
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
     | sh -s -- -y --default-toolchain stable
 ENV PATH="/home/vscode/.cargo/bin:${PATH}"
+
+# ── Node.js via nvm (avoids system-level permission issues with npm -g) ──────
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
+    && export NVM_DIR="/home/vscode/.nvm" \
+    && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" \
+    && nvm install --lts \
+    && nvm use --lts \
+    && nvm alias default lts/*
 USER root
 
 # ── Shell tweaks ──────────────────────────────────────────────────────────────

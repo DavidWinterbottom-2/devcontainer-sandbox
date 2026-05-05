@@ -19,10 +19,27 @@ fi
 # ── Node.js: install deps if a package.json exists ───────────────────────────
 if [ -f "package.json" ]; then
   echo "📦 Installing Node dependencies..."
+  export NVM_DIR="$HOME/.nvm"
+  # shellcheck source=/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   npm install
 fi
 
 echo "✅ Post-create setup complete."
+
+# ── OpenSpec ───────────────────────────────────────────────────────────────────
+WORKSPACE_ROOT="$(git rev-parse --show-toplevel)"
+if [ ! -d "$WORKSPACE_ROOT/.claude/skills/openspec-propose" ] || [ ! -d "$WORKSPACE_ROOT/.claude/commands/opsx" ] || [ ! -d "$WORKSPACE_ROOT/.github/skills" ]; then
+  echo "📋 Installing OpenSpec (skills/commands not found in repo)..."
+  export NVM_DIR="$HOME/.nvm"
+  # shellcheck source=/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  npm install -g @fission-ai/openspec@latest
+  openspec init --tools claude,github-copilot --profile core
+  echo "✅ OpenSpec installed."
+else
+  echo "⏭️  OpenSpec skills already present in repo — skipping install."
+fi
 
 # ── Clone and install dotfiles ─────────────────────────────────────────────
 echo "🔧 Cloning and installing dotfiles..."

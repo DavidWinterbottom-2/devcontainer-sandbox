@@ -1,7 +1,26 @@
 {
   "permissions": {
     "allow": [
-      "Read(//home/vscode/.claude/**)"
+      "Read(//home/vscode/.claude/**)",
+      "Bash(find /workspaces -maxdepth 3 -name \"devcontainer.json\" 2>/dev/null | sort)",
+      "Read(//workspaces/**)",
+      "Bash(find /workspaces -maxdepth 1 -type d | sort && ls /home/vscode/ 2>/dev/null | head -20)",
+      "Read(//home/vscode/**)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "Bash(git ls-remote *)",
+      "Bash(git clone *)",
+      "Bash(find /tmp/budget-analyzer/.devcontainer -type f | sort)",
+      "Read(//tmp/budget-analyzer/.devcontainer/**)",
+      "Bash(npm pack *)",
+      "Bash(curl -s https://registry.npmjs.org/@fission-ai/openspec/1.3.1)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('readme',''\\)[:3000]\\)\")",
+      "Read(//tmp/**)",
+      "Bash(tar -xzf /tmp/fission-ai-openspec-1.3.1.tgz)",
+      "Read(//tmp/package/**)",
+      "Bash(mkdir -p /tmp/openspec-pkg)",
+      "Bash(tar -xzf /tmp/fission-ai-openspec-1.3.1.tgz -C /tmp/openspec-pkg)",
+      "Bash(tar -xzf fission-ai-openspec-*.tgz)"
     ]
   }
 }
